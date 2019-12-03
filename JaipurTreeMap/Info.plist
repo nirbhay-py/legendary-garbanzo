@@ -12,6 +12,14 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>&quot;We need to access your location to add trees to our database&quot;</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>&quot;We need to access your location to add trees to our database&quot;</string>
+	<key>NSCameraUsageDescription</key>
+	<string>&quot;Can we use your camera?&quot;</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>&quot;Can we access your photo library?&quot;</string>
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>

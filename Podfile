@@ -17,6 +17,7 @@ pod 'SPPermissions/Location'
 pod 'SPPermissions/PhotoLibrary'
 pod 'Firebase/Auth'
 pod 'JGProgressHUD'
+pod "SearchTextField"
 pod 'GoogleSignIn'
 
 end

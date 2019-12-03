@@ -11,33 +11,24 @@ import Firebase
 import JGProgressHUD
 import GoogleSignIn
 import SCLAlertView
+import ARKit
 class ViewController: UIViewController, GIDSignInDelegate{
     //MARK:IB OUTLETS
-    @IBOutlet weak var GISConst: NSLayoutConstraint!
-    @IBOutlet weak var logoConst: NSLayoutConstraint!
+ 
     
     //MARK: GLOBAL VARIABLES
     var userToSegue:UserClass!
-    
+    let guestUser = UserClass(fullName: "Guest", email: "na", userID: "na", photoURL: "na", givenName: "na")
     
     //MARK: OVERRIDE FUNCTIONS
     
     //MARK:VIEWWILLAPPEAR
-    override func viewWillAppear(_ animated: Bool) {
-        logoConst.constant -= self.view.bounds.width
-        GISConst.constant -= self.view.bounds.width
-        view.layoutIfNeeded()
-    }
+
     
     //MARK:VIEWDIDAPPEAR
     override func viewDidAppear(_ animated: Bool) {
-        UIView.animate(withDuration: 0.6, animations: {
-            self.logoConst.constant += self.view.bounds.width
-            self.GISConst.constant += self.view.bounds.width
-            self.view.layoutIfNeeded()
-        })
+        navigationController?.setNavigationBarHidden(true, animated: animated)
         if(Auth.auth().currentUser != nil){
-//            showNotice(msg: "Logging you in...")
             let localHud = JGProgressHUD.init()
             localHud.show(in: self.view,animated: true)
             print("called\n")
@@ -54,6 +45,7 @@ class ViewController: UIViewController, GIDSignInDelegate{
                 let userID = value!["userID"] as! String
                 self.userToSegue = UserClass(fullName: name, email: email, userID: userID, photoURL: photoURL, givenName: givenName)
                 localHud.dismiss()
+                self.performSegue(withIdentifier: "main", sender: self)
             }){ (error) in
                 print(error.localizedDescription)
                 showAlert(msg: error.localizedDescription)
@@ -68,6 +60,8 @@ class ViewController: UIViewController, GIDSignInDelegate{
         GIDSignIn.sharedInstance()?.presentingViewController = self
         
     }
+    //MARK:VIEWWILLDISAPPEAR
+
     
     //MARK:GOOGLE SIGN IN FUNCTIONS
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
@@ -90,7 +84,6 @@ class ViewController: UIViewController, GIDSignInDelegate{
         let email = user.profile.email
         let givenName = user.profile.givenName
         let photoURL = user.profile.imageURL(withDimension: 150)?.absoluteString
-            self.userToSegue = UserClass(fullName: name!, email: email!, userID: userID!, photoURL: photoURL!, givenName: givenName!)
         let userDic = [
               "userID":userID!,
               "givenName":givenName ?? "Empty",
@@ -106,7 +99,9 @@ class ViewController: UIViewController, GIDSignInDelegate{
                   showAlert(msg: error?.localizedDescription ?? "There seems to be something wrong with your connection.")
               }else{
                   hud.dismiss()
+                self.userToSegue = UserClass(fullName: name!, email: email!, userID: userID!, photoURL: photoURL!, givenName: givenName!)
                   showSuccess(msg: "Signed in with success!")
+                  self.performSegue(withIdentifier: "main", sender: self)
               }
           }
         }
@@ -115,6 +110,16 @@ class ViewController: UIViewController, GIDSignInDelegate{
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
       -> Bool {
         return GIDSignIn.sharedInstance().handle(url)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier=="main"){
+            let destVC = segue.destination as! mainVC
+            destVC.thisUser = self.userToSegue
+        }
+        else if(segue.identifier=="asGuest"){
+            let destVC = segue.destination as! mainVC
+            destVC.thisUser = self.guestUser
+        }
     }
 }
 

@@ -115,6 +115,7 @@ PODS:
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
   - SCLAlertView (0.8)
+  - SearchTextField (1.2.4)
   - SPPermissions/Camera (4.1.4):
     - SPPermissions/Core
   - SPPermissions/Core (4.1.4)
@@ -133,6 +134,7 @@ DEPENDENCIES:
   - GoogleSignIn
   - JGProgressHUD
   - SCLAlertView
+  - SearchTextField
   - SPPermissions/Camera
   - SPPermissions/Location
   - SPPermissions/PhotoLibrary
@@ -163,6 +165,7 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - SCLAlertView
+    - SearchTextField
     - SPPermissions
 
 SPEC CHECKSUMS:
@@ -190,8 +193,9 @@ SPEC CHECKSUMS:
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
+  SearchTextField: 40dc3cc57def5a211f263cac263622c163bbc25a
   SPPermissions: 9fafa3125a66ec00e36a4c8e3ad8684f5499afbc
 
-PODFILE CHECKSUM: 7b96c3477b493a0c4cd5f5527c3d5c5f7c540795
+PODFILE CHECKSUM: 036daf2c3c0acf226aed2018669b2645e09b8d07
 
 COCOAPODS: 1.8.4
