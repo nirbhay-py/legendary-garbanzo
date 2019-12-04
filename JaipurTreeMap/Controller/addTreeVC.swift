@@ -13,6 +13,8 @@ import GoogleMaps
 import ARKit
 import Firebase
 import SearchTextField
+import CoreML
+
 
 class addTreeVC: UIViewController,CLLocationManagerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate{
    
@@ -25,6 +27,7 @@ class addTreeVC: UIViewController,CLLocationManagerDelegate,UIImagePickerControl
     let imagePicker = UIImagePickerController()
     var imgData:Data!
     var coord:CLLocationCoordinate2D!
+    var model:MobileNetV2!
     //MARK:IB OUTLETS
     @IBOutlet weak var searchTxtBox: SearchTextField!
     @IBOutlet weak var addressLbl: UILabel!
@@ -32,6 +35,9 @@ class addTreeVC: UIViewController,CLLocationManagerDelegate,UIImagePickerControl
     @IBOutlet weak var heightTxtBox: UITextField!
     @IBOutlet weak var diameterTextBox: UITextField!
     //MARK:VIEWDIDLOAD
+    override func viewWillAppear(_ animated: Bool) {
+        model = MobileNetV2()
+    }
     override func viewDidLoad() {
         imagePicker.delegate = self
         submitBtn.layer.cornerRadius = 15
@@ -149,7 +155,53 @@ class addTreeVC: UIViewController,CLLocationManagerDelegate,UIImagePickerControl
             self.imgData = pickedImage.pngData()
         }
         dismiss(animated: true, completion: nil)
+        let hud = JGProgressHUD.init()
+        hud.show(in: self.view)
+           guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
+               return
+           }
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: 224, height: 224), true, 2.0)
+            image.draw(in: CGRect(x: 0, y: 0, width: 224, height: 224))
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()!
+            UIGraphicsEndImageContext()
+            
+            let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
+            var pixelBuffer : CVPixelBuffer?
+            let status = CVPixelBufferCreate(kCFAllocatorDefault, Int(newImage.size.width), Int(newImage.size.height), kCVPixelFormatType_32ARGB, attrs, &pixelBuffer)
+            guard (status == kCVReturnSuccess) else {
+                return
+            }
+            
+            CVPixelBufferLockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
+            let pixelData = CVPixelBufferGetBaseAddress(pixelBuffer!)
+            
+            let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
+            let context = CGContext(data: pixelData, width: Int(newImage.size.width), height: Int(newImage.size.height), bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!), space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue) //3
+            
+            context?.translateBy(x: 0, y: newImage.size.height)
+            context?.scaleBy(x: 1.0, y: -1.0)
+            
+            UIGraphicsPushContext(context!)
+            newImage.draw(in: CGRect(x: 0, y: 0, width: newImage.size.width, height: newImage.size.height))
+            UIGraphicsPopContext()
+            CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
+            guard let res = try? model.prediction(image: pixelBuffer!) else{
+                showAlert(msg: "AN unexpected error occured. Try again.")
+                self.imgData = nil
+                return
+            }
+            hud.dismiss()
+        if(!(res.classLabel.contains("tree")) && !(res.classLabel.contains("plant")) && !(res.classLabel.contains("flower")) ){
+                showAlert(msg: "This doesn't look like a tree. Try again. It looks like " +  res.classLabel)
+                self.imgData = nil
+            }else{
+                showSuccess(msg: "Your image passed the verification test!")
+            }
+            print(res.classLabel)
+            
     }
+
+           
     func resetFields(){
         self.diameterTextBox.text = ""
         self.heightTxtBox.text = ""

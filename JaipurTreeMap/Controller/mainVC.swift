@@ -18,8 +18,14 @@ class mainVC: UIViewController{
     @IBOutlet weak var picConst: NSLayoutConstraint!
     @IBOutlet weak var nameLblConst: NSLayoutConstraint!
     @IBOutlet weak var treeBtn: UIButton!
-    @IBOutlet weak var treeBtnConst: NSLayoutConstraint!
     @IBOutlet weak var logoutBtn: UIButton!
+    @IBOutlet weak var mapBtn: UIButton!
+    @IBOutlet weak var issueBtn: UIButton!
+    @IBOutlet weak var siteBtn: UIButton!
+    @IBOutlet weak var heatmapBtn: UIButton!
+    @IBOutlet weak var guideBtn: UIButton!
+    @IBOutlet weak var driveBtn: UIButton!
+    @IBOutlet weak var aboutBtn: UIButton!
     
     //MARK:GLOBAL VARIABLES
     var thisUser:UserClass!
@@ -29,7 +35,6 @@ class mainVC: UIViewController{
     override func viewDidLoad() {
         if(thisUser.email=="na"){
             self.logoutBtn.setTitle("Login", for: .normal)
-            enterGuestMode()
             self.givenNameLbl.text = "Guest"
         }
         else{
@@ -37,7 +42,14 @@ class mainVC: UIViewController{
         }
         self.profileImgView.layer.cornerRadius = 32
         self.treeBtn.layer.cornerRadius = 20
-        self.logoutBtn.layer.cornerRadius = 15
+        self.logoutBtn.layer.cornerRadius = 20
+        self.mapBtn.layer.cornerRadius = 20
+        self.issueBtn.layer.cornerRadius = 20
+        self.siteBtn.layer.cornerRadius = 20
+        self.heatmapBtn.layer.cornerRadius = 20
+        self.guideBtn.layer.cornerRadius = 20
+        self.driveBtn.layer.cornerRadius = 20
+        self.aboutBtn.layer.cornerRadius = 20
         askPermissions()
         super.viewDidLoad()
     }
@@ -79,11 +91,6 @@ class mainVC: UIViewController{
             destVC.thisUser = self.thisUser
         }
     }
-    func enterGuestMode()
-    {
-        treeBtn.isEnabled = false
-        treeBtn.alpha = 0.5
-    }
     @IBAction func logout(_ sender: Any) {
        
         if(self.thisUser.email=="na"){
@@ -100,4 +107,19 @@ class mainVC: UIViewController{
             }
         }
     }
+    @IBAction func addTreeClicked(_ sender: Any) {
+        if(self.thisUser.email=="na"){
+            showAlert(msg: "In order to protect our database from fraudulent entries, only signed-in users can add trees. Please sign in and try again.")
+        }else{
+            self.performSegue(withIdentifier: "addTree", sender: self)
+        }
+    }
+    @IBAction func addEmptySiteClicked(_ sender: Any) {
+        if(self.thisUser.email=="na"){
+                   showAlert(msg: "In order to protect our database from fraudulent entries, only signed-in users can add trees. Please sign in and try again.")
+               }else{
+                   self.performSegue(withIdentifier: "toEmptySite", sender: self)
+               }
+    }
+    
 }

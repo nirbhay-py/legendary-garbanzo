@@ -16,8 +16,11 @@
 		1C04F24723914CF100BBC39F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C04F24623914CF100BBC39F /* GoogleService-Info.plist */; };
 		1C04F24923914F7E00BBC39F /* appUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C04F24823914F7E00BBC39F /* appUtils.swift */; };
 		1C04F24B2391524900BBC39F /* UserClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C04F24A2391524900BBC39F /* UserClass.swift */; };
+		1C89B07C2396E82A004445A2 /* mapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C89B07B2396E82A004445A2 /* mapVC.swift */; };
 		1CA7496523917A2A007F002B /* mainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA7496423917A2A007F002B /* mainVC.swift */; };
 		1CA7496723918149007F002B /* addTreeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA7496623918149007F002B /* addTreeVC.swift */; };
+		1CB0347F2397F88A00E489F4 /* emptySiteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB0347E2397F88A00E489F4 /* emptySiteVC.swift */; };
+		1CB65AA0239826CE0040E139 /* MobileNetV2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1CB65A9F239826CE0040E139 /* MobileNetV2.mlmodel */; };
 		34B7188C3B61BE2AC05142CF /* Pods_JaipurTreeMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 107F756121439230BC7D99C7 /* Pods_JaipurTreeMap.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,8 +37,11 @@
 		1C04F24623914CF100BBC39F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1C04F24823914F7E00BBC39F /* appUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appUtils.swift; sourceTree = "<group>"; };
 		1C04F24A2391524900BBC39F /* UserClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserClass.swift; sourceTree = "<group>"; };
+		1C89B07B2396E82A004445A2 /* mapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapVC.swift; sourceTree = "<group>"; };
 		1CA7496423917A2A007F002B /* mainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainVC.swift; sourceTree = "<group>"; };
 		1CA7496623918149007F002B /* addTreeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addTreeVC.swift; sourceTree = "<group>"; };
+		1CB0347E2397F88A00E489F4 /* emptySiteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emptySiteVC.swift; sourceTree = "<group>"; };
+		1CB65A9F239826CE0040E139 /* MobileNetV2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MobileNetV2.mlmodel; sourceTree = "<group>"; };
 		9CF0EE90B8FE00A57BD80523 /* Pods-JaipurTreeMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JaipurTreeMap.debug.xcconfig"; path = "Target Support Files/Pods-JaipurTreeMap/Pods-JaipurTreeMap.debug.xcconfig"; sourceTree = "<group>"; };
 		EF25AFA9D69D667EE839A242 /* Pods-JaipurTreeMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JaipurTreeMap.release.xcconfig"; path = "Target Support Files/Pods-JaipurTreeMap/Pods-JaipurTreeMap.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,6 +79,7 @@
 		1C04F22E2391480A00BBC39F /* JaipurTreeMap */ = {
 			isa = PBXGroup;
 			children = (
+				1CB65A9F239826CE0040E139 /* MobileNetV2.mlmodel */,
 				1C04F2452391483500BBC39F /* Controller */,
 				1C04F2442391482F00BBC39F /* View */,
 				1C04F2432391481F00BBC39F /* Model */,
@@ -109,6 +116,8 @@
 				1C04F24823914F7E00BBC39F /* appUtils.swift */,
 				1CA7496423917A2A007F002B /* mainVC.swift */,
 				1CA7496623918149007F002B /* addTreeVC.swift */,
+				1C89B07B2396E82A004445A2 /* mapVC.swift */,
+				1CB0347E2397F88A00E489F4 /* emptySiteVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -269,7 +278,10 @@
 				1CA7496723918149007F002B /* addTreeVC.swift in Sources */,
 				1C04F2302391480A00BBC39F /* AppDelegate.swift in Sources */,
 				1C04F2322391480A00BBC39F /* SceneDelegate.swift in Sources */,
+				1C89B07C2396E82A004445A2 /* mapVC.swift in Sources */,
+				1CB0347F2397F88A00E489F4 /* emptySiteVC.swift in Sources */,
 				1C04F24923914F7E00BBC39F /* appUtils.swift in Sources */,
+				1CB65AA0239826CE0040E139 /* MobileNetV2.mlmodel in Sources */,
 				1CA7496523917A2A007F002B /* mainVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
